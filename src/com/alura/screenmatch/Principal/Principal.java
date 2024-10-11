@@ -1,3 +1,5 @@
+package com.alura.screenmatch.Principal;
+
 import com.alura.screenmatch.calculos.CalculadoraDeTiempo;
 import com.alura.screenmatch.calculos.FiltroRecomendacion;
 import com.alura.screenmatch.modelos.Episodio;
@@ -20,9 +22,7 @@ public class Principal {
         System.out.println(miPelicula.calculaMediaEvaluaciones());
 
 
-        Serie lost = new Serie();
-        lost.setNombre("Lost");
-        lost.setFechaDeLanzamiento(2000);
+        Serie lost = new Serie("Lost",2000);
         lost.muestraFichaTecnica();
         lost.setTemporadas(10);
         lost.setEpisodiosPorTemporada(10);
