@@ -6,9 +6,8 @@ import java.util.Objects;
 
 public class Titulo implements Comparable<Titulo>{
 
-    @SerializedName("Title")
+
     private String nombre;
-    @SerializedName("Year")
     private int fechaDeLanzamiento;
     private boolean incluidoEnElPlan;
     private double sumaDeLasEvaluaciones;
@@ -18,8 +17,14 @@ public class Titulo implements Comparable<Titulo>{
     public Titulo (TituloOmdb miTituloOmdb){
         this.nombre = miTituloOmdb.Title();
         this.fechaDeLanzamiento = Integer.valueOf(miTituloOmdb.year());
+
+        if(miTituloOmdb.runtime().contains("N/A")){
+            throw new ErrorEnConversionDeDuraccionExcepcion("No pude convertir la duracion, "+
+                    "porque contiene un N/A");
+        }
+
         this.duracionEnMinutos = Integer.valueOf(miTituloOmdb.runtime()
-                .substring(0,2));
+                .substring(0,3).replace(" ","") );
 
     }
     public Titulo(String nombre, int fechaDeLanzamiento) {
@@ -82,10 +87,10 @@ public class Titulo implements Comparable<Titulo>{
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Titulo{");
-        sb.append("nombre='").append(nombre).append('\'');
+        final StringBuilder sb = new StringBuilder("");
+        sb.append(" (nombre= ").append(nombre);
         sb.append(", fechaDeLanzamiento=").append(fechaDeLanzamiento);
-        sb.append(", runtime= ").append(this.duracionEnMinutos);
+        sb.append(", runtime= ").append(this.duracionEnMinutos).append(")\n");
         return sb.toString();
     }
 
